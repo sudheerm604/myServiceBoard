@@ -15,6 +15,18 @@ router.get('/', function(req, res) {
 	  });
 });
 
+router.get('/json', function(req, res) {
+	  Company.find({}).exec(function(err, companies, next) {
+	    if (err) {
+	      console.log("db error in GET /companies/json: " + err);
+	      next(err);
+	    } else {
+	    	res.json(companies);
+	    }
+	  });
+});
+
+
 
 /*Show the new company form*/
 router.get('/new', function(req, res, next) {
@@ -32,6 +44,16 @@ router.get('/:company_id', function(req, res, next) {
 	     }
 	    // res.json(company);
 	     res.render('companies/show', { company: company});
+	});
+});
+
+router.get('/:company_id/json', function(req, res, next) {
+	Company.findById(req.params.company_id, function(err, company) {
+	     if (err){
+	         res.send(err);
+	         console.log(err);
+	     }
+	     res.json(company);
 	});
 });
 
@@ -104,10 +126,6 @@ router.get('/delete/:id', function(req, res) {
 		    }
 	 });
 });
-
-
-
-
 
 
 module.exports = router;

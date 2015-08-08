@@ -13,6 +13,7 @@ var methodOverride = require('method-override');
 var routes = require('./routes/index');
 var users = require('./routes/users');
 var companies = require('./routes/companies');
+var segments = require('./routes/segments');
 
 var app = express();
 
@@ -51,6 +52,8 @@ app.use(methodOverride(function(req, res) {
 app.use('/', routes);
 app.use('/users', users);
 app.use('/companies', companies);
+app.use('/segments', segments);
+
 
 
 //Connect to the backend DB
